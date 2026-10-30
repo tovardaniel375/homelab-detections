@@ -3,3 +3,4 @@
 alert tcp any any -> $HOME_NET any (msg:"LOCAL Possible SYN port scan against homelab"; flow:stateless; flags:S; threshold:type both, track by_src, count 20, seconds 10; classtype:attempted-recon; sid:1000101; rev:1;)
 alert dns $HOME_NET any -> any any (msg:"LOCAL DNS lookup of canary domain"; dns.query; content:"canary-dan.test"; nocase; classtype:policy-violation; sid:1000102; rev:1;)
 alert icmp any any -> $HOME_NET any (msg:"LOCAL ICMP timestamp request - likely nmap host discovery"; itype:13; classtype:attempted-recon; sid:1000103; rev:1;)
+alert tcp any any -> $HOME_NET 22 (msg:"LOCAL Possible SSH brute force - many new connections"; flow:to_server; flags:S; threshold:type both, track by_src, count 5, seconds 60; classtype:attempted-admin; sid:1000104; rev:2;)
