@@ -50,6 +50,8 @@ The canary alert showed the server's DNS going to the **router (192.168.1.1)** i
 
 **Fix:** reloaded dhcpcd (`dhcpcd -n eno1`), rewrote `resolv.conf` with the Pi-hole as primary and Quad9 as fallback, then forced another lease renewal to confirm the file stayed put. Running the canary again showed the **Pi-hole (192.168.1.26)** as the destination, so the IDS confirmed the fix too.
 
+![EveBox flow view: canary lookup now goes to the Pi-hole (192.168.1.26) and gets NXDOMAIN in 1 ms, down from 27 ms through the router](images/evebox-canary-alert.png)
+
 ## Lessons
 
 - A detection isn't done until you've triggered it and seen the alert.
